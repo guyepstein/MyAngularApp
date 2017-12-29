@@ -1,0 +1,60 @@
+[
+    {
+        "id": 1,
+        "AreaName":"North",
+        "Locations":
+        [
+            {
+                "ID": 1,
+                "Name": "Metula"
+            },
+            {
+                "ID": 2,
+                "Name": "Kiryat-Shmona"
+            },
+            {
+                "ID": 3,
+                "Name": "HAifa"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "AreaName":"Center",
+        "Locations":
+        [
+            {
+                "ID": 4,
+                "Name": "Tel-Aviv"
+            },
+            {
+                "ID": 5,
+                "Name": "Rishon-Le-Tzion"
+            },
+            {
+                "ID": 6,
+                "Name": "Kfar-Saba"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "AreaName":"South",
+        "Locations":
+        [
+            {
+                "ID": 7,
+                "Name": "Beer-Sheva"
+            },
+            {
+                "ID": 8,
+                "Name": "Eilat"
+            },
+            {
+                "ID": 9,
+                "Name": "Ashelon"
+            }
+        ]
+    }
+]
+    

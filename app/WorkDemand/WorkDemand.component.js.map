@@ -1,0 +1,1 @@
+{"version":3,"file":"WorkDemand.component.js","sourceRoot":"","sources":["WorkDemand.component.ts"],"names":[],"mappings":";;;;;;;;AAAA,sCAA0C;AAe1C,IAAa,mBAAmB;IAAhC;IAGA,CAAC;IAAD,0BAAC;AAAD,CAAC,AAHD,IAGC;AAHY,mBAAmB;IAT/B,gBAAS,CAAC;QACP,QAAQ,EAAE,aAAa;QACvB,sBAAsB;QACtB,0DAA0D;QAC1D,WAAW,EAAC,sCAAsC,CAAA;6DACG;QACrD,yDAAyD;KAC5D,CAAC;GAEW,mBAAmB,CAG/B;AAHY,kDAAmB"}

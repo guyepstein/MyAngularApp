@@ -1,0 +1,19 @@
+thead
+{
+    color: #337AB7;
+    background: #58FA82;
+}
+
+
+#tblWorkers tr:hover td
+{
+    color: #AC58FA;
+    background:#D0F5A9;
+    cursor: pointer; 
+    cursor: hand;
+}
+.addWorker
+{
+    float: right;
+    cursor: pointer;
+}

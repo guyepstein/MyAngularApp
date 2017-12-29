@@ -1,0 +1,42 @@
+<div class = 'panel-body'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+    <section>
+        <!--<a class="addWorker"  [routerLink]="['./EditWorkerReactive']">Add Worker</a>-->
+        <a class="addWorker"  [routerLink]="['../EditWorker']">Add Worker</a>
+            <div class='table-responsive'>
+            <table id="tblWorkers" class="table" *ngIf = "Workers && Workers.length > 0">
+                <thead>
+                    <tr>
+                        <th style="display : none">ID</th>
+                        <th>IDNumber</th>
+                        <th>Name</th>
+                        <th>Date Of Birth</th>
+                        <th>Phone1</th>
+                        <th>Phone2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = 'let worker of Workers' (mouseover)="showAdditionalData(worker)" 
+                        (onmouseout)="hideAdditionalData()" >
+                        <td style="display : none">{{ worker.ID }}</td>        
+                        <td>{{ worker.IDNumber }}</td>        
+                        <td>{{ worker.FirstName + ' ' + worker.LastName }}</td>        
+                        <td>{{ worker.DateOfBirth }}</td>        
+                        <td>{{ worker.PhoneNumber1 }}</td>        
+                        <td>{{ worker.PhoneNumber2 }}</td> 
+                        <td><a [routerLink]="['../EditWorker', worker.IDNumber]">
+                                Edit
+                            </a></td>      
+                    </tr>
+                </tbody>
+             </table>
+            </div>
+    </section> 
+    <div *ngIf = "SelectedWorker">
+        <label> Additional Data: </label>
+        <input type="text" [ngModel] = "SelectedWorker.General_Additional_Data" />
+    </div>    
+             
+</div>
