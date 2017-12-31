@@ -23,7 +23,7 @@ export class EditWorkerReactive implements OnInit
         required: 'Please enter your email address.',
         pattern: 'Please enter a valid email address'
     }
-    constructor (private fb : FormBuilder, private route: ActivatedRoute)
+    constructor (private fb : FormBuilder, private route: ActivatedRoute, private workerService : WorkerService)
     {
         
     }
@@ -36,6 +36,10 @@ export class EditWorkerReactive implements OnInit
     ngOnInit(): void{
 
         this.workerId = this.route.snapshot.params.id;
+        if (typeof this.workerId != 'undefined' &&  this.workerId > 0 )
+        {
+            this.workerService.getWorker(this.workerId).map (result => this.worker = result[0]);
+        }
         this.editWorkerReactiveForm = this.fb.group ({
             firstName: ['', [Validators.required, Validators.minLength(3)]],
             lastName: ['', [Validators.required, Validators.maxLength(50)]],

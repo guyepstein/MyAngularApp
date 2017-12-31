@@ -29,16 +29,18 @@ export class WorkerService
         .catch(this.handleError);*/
     }
     
-    getWorker(id : number) : Observable<IWorker>
+    
+    getWorker(id : number) : Observable<IWorker[]>
     {
         if (id ===0)
         {
+           return this.getWorkers();
            //return Observable.of(this.initializeWorker());
-           return Observable.create((observer: any) => 
+           /*return Observable.create((observer: any) => 
             {
                 observer.next(this.initializeWorker());
                 observer.complete();
-            });
+            });*/
         }
         const url = this._singleWorkerURL;
         return this._http.get(url)
@@ -46,6 +48,7 @@ export class WorkerService
             .do(data => console.log('getWorker: ' + JSON.stringify(data)))
             .catch(this.handleError)
     }
+   
     
     initializeWorker() : /*IWorker*/any
     {

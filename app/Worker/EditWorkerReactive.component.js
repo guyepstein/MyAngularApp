@@ -10,14 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var WorkerService_service_1 = require("../Services/WorkerService.service");
 var worker_model_1 = require("../Models/worker.model");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 require("rxjs/add/operator/debounceTime");
 var EditWorkerReactive = (function () {
-    function EditWorkerReactive(fb, route) {
+    function EditWorkerReactive(fb, route, workerService) {
         this.fb = fb;
         this.route = route;
+        this.workerService = workerService;
         this.worker = new worker_model_1.Worker();
         this.showAddress = false;
         this.validationMessages = {
@@ -35,6 +37,9 @@ var EditWorkerReactive = (function () {
     EditWorkerReactive.prototype.ngOnInit = function () {
         var _this = this;
         this.workerId = this.route.snapshot.params.id;
+        if (typeof this.workerId != 'undefined' && this.workerId > 0) {
+            this.workerService.getWorker(this.workerId).map(function (result) { return _this.worker = result[0]; });
+        }
         this.editWorkerReactiveForm = this.fb.group({
             firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
             lastName: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(50)]],
@@ -116,7 +121,7 @@ EditWorkerReactive = __decorate([
         selector: 'edit-worker-reactive',
         templateUrl: 'app/Worker/EditWorkerReactive.component.html',
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, router_1.ActivatedRoute, WorkerService_service_1.WorkerService])
 ], EditWorkerReactive);
 exports.EditWorkerReactive = EditWorkerReactive;
 //# sourceMappingURL=EditWorkerReactive.component.js.map

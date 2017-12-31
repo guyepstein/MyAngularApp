@@ -33,13 +33,14 @@ var WorkerService = (function () {
         .catch(this.handleError);*/
     };
     WorkerService.prototype.getWorker = function (id) {
-        var _this = this;
         if (id === 0) {
+            return this.getWorkers();
             //return Observable.of(this.initializeWorker());
-            return Observable_1.Observable.create(function (observer) {
-                observer.next(_this.initializeWorker());
-                observer.complete();
-            });
+            /*return Observable.create((observer: any) =>
+             {
+                 observer.next(this.initializeWorker());
+                 observer.complete();
+             });*/
         }
         var url = this._singleWorkerURL;
         return this._http.get(url)
