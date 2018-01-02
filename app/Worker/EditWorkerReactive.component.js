@@ -11,16 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var WorkerService_service_1 = require("../Services/WorkerService.service");
-var worker_model_1 = require("../Models/worker.model");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/catch");
+//import 'rxjs/add/observables/throw'; 
 var EditWorkerReactive = (function () {
     function EditWorkerReactive(fb, route, workerService) {
         this.fb = fb;
         this.route = route;
         this.workerService = workerService;
-        this.worker = new worker_model_1.Worker();
         this.showAddress = false;
         this.validationMessages = {
             required: 'Please enter your email address.',
@@ -37,18 +37,12 @@ var EditWorkerReactive = (function () {
     EditWorkerReactive.prototype.ngOnInit = function () {
         var _this = this;
         this.workerId = this.route.snapshot.params.id;
-        if (typeof this.workerId != 'undefined' && this.workerId > 0) {
-            this.workerService.getWorker(this.workerId).map(function (result) { return _this.worker = result[0]; });
-        }
         this.editWorkerReactiveForm = this.fb.group({
             firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
             lastName: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(50)]],
             emailGroup: this.fb.group({
                 email: ['', [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+')]]
             }),
-            //chkboxAddAddress: [''],
-            /*email: ['',[Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z09.-]+')]],*/
-            //addressesGroup: this.buildAddress(),
             addressGroup: this.fb.array([this.buildAddress()]),
             phone: '',
             notification: 'email',
@@ -59,6 +53,9 @@ var EditWorkerReactive = (function () {
         var emailControl1 = this.editWorkerReactiveForm.get('emailGroup');
         var emailControl = this.editWorkerReactiveForm.get('emailGroup.email');
         emailControl.valueChanges.debounceTime(1000).subscribe(function (value) { return _this.setMessage(emailControl); });
+        if (typeof this.workerId != 'undefined' && this.workerId > 0) {
+            this.workerService.getWorker(this.workerId).subscribe(function (result) { _this.setPageValues(result); });
+        }
         /*new FormGroup(
             {
                 firstName: new FormControl(),
@@ -70,6 +67,19 @@ var EditWorkerReactive = (function () {
                 city: new FormControl(),
              }
         );*/
+    };
+    EditWorkerReactive.prototype.setPageValues = function (workerItem) {
+        this.worker = workerItem;
+        this.editWorkerReactiveForm.patchValue({
+            firstName: this.worker.FirstName,
+            lastName: this.worker.LastName,
+            /*emailGroup{ email:
+                this.worker.Email },*/
+            zip: this.worker.Zip,
+            street1: this.worker.Street1,
+            street2: this.worker.Street2,
+            phone: this.worker.PhoneNumber1
+        });
     };
     EditWorkerReactive.prototype.buildAddress = function () {
         return this.fb.group({

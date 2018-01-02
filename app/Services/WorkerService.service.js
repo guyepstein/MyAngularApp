@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
-var JsonDAL_service_1 = require("./JsonDAL.service");
 //import { Workers } from '../Models/worker.model';
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/do");
@@ -21,31 +20,42 @@ require("rxjs/add/observable/of");
 var WorkerService = (function () {
     function WorkerService(_http) {
         this._http = _http;
-        this._workerURL = 'api/Worker/Worker.json';
+        //private _workerURL = 'api/Worker/Worker.json';
+        this._workerURL = 'api/workers';
         this._singleWorkerURL = this._workerURL + "/" + this.id;
     }
+    Object.defineProperty(WorkerService.prototype, "singleWorkerURL", {
+        get: function () {
+            //return this._singleWorkerURL;
+            return this._workerURL + "/" + this.id;
+        },
+        enumerable: true,
+        configurable: true
+    });
     WorkerService.prototype.getWorkers = function () {
-        var jsonDal = new JsonDAL_service_1.JsonDaL(this._workerURL, this._http);
-        return jsonDal.getJsonData();
-        /*return this._http.get(this._workerURL)
-        .map((response : Response) => <IWorker[]> response.json())
-        .do(data => console.log('All: ' + JSON.stringify(data)))//Here we can write to the log
-        .catch(this.handleError);*/
+        /*let jsonDal = new JsonDaL(this._workerURL, this._http);
+        return jsonDal.getJsonData();*/
+        return this._http.get(this._workerURL)
+            .map(function (response) { return response.json().data; })
+            .do(function (data) { return console.log('All: ' + JSON.stringify(data)); }) //Here we can write to the log
+            .catch(this.handleError);
     };
     WorkerService.prototype.getWorker = function (id) {
-        if (id === 0) {
-            return this.getWorkers();
-            //return Observable.of(this.initializeWorker());
-            /*return Observable.create((observer: any) =>
-             {
-                 observer.next(this.initializeWorker());
-                 observer.complete();
-             });*/
-        }
-        var url = this._singleWorkerURL;
+        // if (id ===0)
+        // {
+        //    return this.getWorkers();
+        //    //return Observable.of(this.initializeWorker());
+        //    /*return Observable.create((observer: any) => 
+        //     {
+        //         observer.next(this.initializeWorker());
+        //         observer.complete();
+        //     });*/
+        // }
+        this.id = +id;
+        var url = this.singleWorkerURL;
         return this._http.get(url)
-            .map(this.extractData)
-            .do(function (data) { return console.log('getWorker: ' + JSON.stringify(data)); })
+            .map(function (response) { /*this.extractData(response)*/ return response.json().data; })
+            .do(function (response) { return console.log('getWorker: ' + JSON.stringify(response)); })
             .catch(this.handleError);
     };
     WorkerService.prototype.initializeWorker = function () {

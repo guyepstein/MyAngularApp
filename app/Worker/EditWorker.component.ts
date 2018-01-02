@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkerService } from '../Services/WorkerService.service';
-import { IWorker, Worker } from '../Models/worker.model';
+//import { IWorker, Worker } from '../Models/worker.model';
+//import { IWorker, Worker } from '../Services/worker.model';
+//import { IWorker, Worker } from '../Services/worker.model';
+import { IWorker, Worker } from '../Services/worker';
 import { ActivatedRoute/*, Router*/ } from '@angular/router';
 import { NgForm } from '@angular/forms';
 

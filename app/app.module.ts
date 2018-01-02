@@ -3,7 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component.js';
 import { WorkersComponent } from './Worker/Workers.component';
-import { WorkerData } from './Models/worker.model';
+//import { WorkerData } from './Models/worker.model';
+//import { WorkerData } from './Services/worker.model';
+import { WorkerData } from './Services/worker';
 import { WorkDemandComponent } from './WorkDemand/WorkDemand.component';
 import { EditWorker } from './Worker/EditWorker.component';
 import { EditWorkerReactive } from './Worker/EditWorkerReactive.component';
@@ -13,8 +15,8 @@ import { PageNotFoundComponent } from './shared/PageNotFound.component';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.router';
+import {InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-//import { InMemoryWebApiModule } from 'angular-in-memory-web-api'; 
 
 @NgModule({
   imports: [ BrowserModule, HttpModule, ReactiveFormsModule, FormsModule, RouterModule, routes/*,
@@ -25,7 +27,7 @@ import { routes } from './app.router';
     ]
   )*/
 
-  /*, InMemoryWebApiModule.forRoot(WorkerData)*/ ],
+  , InMemoryWebApiModule.forRoot(WorkerData) ],
   declarations: [ AppComponent, WorkersComponent, WorkDemandComponent, EditWorker, EditWorkerReactive, WorkersComponent, WorkDemandComponent, PageNotFoundComponent ],
   providers: [ WorkerService, WorkDemandService ],
   bootstrap: [ AppComponent/*EditWorkerReactive*//*EditWorker*//*WorkersComponent*/  ]

@@ -11,6 +11,9 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var app_component_js_1 = require("./app.component.js");
 var Workers_component_1 = require("./Worker/Workers.component");
+//import { WorkerData } from './Models/worker.model';
+//import { WorkerData } from './Services/worker.model';
+var worker_1 = require("./Services/worker");
 var WorkDemand_component_1 = require("./WorkDemand/WorkDemand.component");
 var EditWorker_component_1 = require("./Worker/EditWorker.component");
 var EditWorkerReactive_component_1 = require("./Worker/EditWorkerReactive.component");
@@ -20,7 +23,7 @@ var PageNotFound_component_1 = require("./shared/PageNotFound.component");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var app_router_1 = require("./app.router");
-//import { InMemoryWebApiModule } from 'angular-in-memory-web-api'; 
+var angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -34,9 +37,8 @@ AppModule = __decorate([
                 { path: '',  component: WorkersComponent },
                 { path: 'EditWorker', component: EditWorkerReactive}
               ]
-            )*/
-            /*, InMemoryWebApiModule.forRoot(WorkerData)*/ 
-        ],
+            )*/,
+            angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(worker_1.WorkerData)],
         declarations: [app_component_js_1.AppComponent, Workers_component_1.WorkersComponent, WorkDemand_component_1.WorkDemandComponent, EditWorker_component_1.EditWorker, EditWorkerReactive_component_1.EditWorkerReactive, Workers_component_1.WorkersComponent, WorkDemand_component_1.WorkDemandComponent, PageNotFound_component_1.PageNotFoundComponent],
         providers: [WorkerService_service_1.WorkerService, WorkDemandService_service_1.WorkDemandService],
         bootstrap: [app_component_js_1.AppComponent /*EditWorkerReactive*/ /*EditWorker*/ /*WorkersComponent*/]

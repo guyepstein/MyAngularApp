@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule} from '@angular/forms';
-import { IWorker, WorkerData } from '../Models/worker.model';
+//import { IWorker, WorkerData } from '../Models/worker.model';
+//import { IWorker, WorkerData } from '../Services/worker.model';
+import { IWorker, WorkerData } from '../Services/worker';
 import { WorkerService } from '../Services/WorkerService.service';
 import { RouterModule } from '@angular/router';
 import { routes } from '../app.router';

@@ -5,27 +5,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var WorkerService_service_1 = require("../Services/WorkerService.service");
 var WorkerData = (function () {
-    function WorkerData(workerService) {
-        this.workerService = workerService;
+    function WorkerData() {
     }
-    WorkerData.prototype.createDb = function (reqInfo) {
-        var _this = this;
-        this.workerService.getWorkers()
-            .subscribe(function (wrkr) { _this.workers = wrkr; }, function (error) { return _this.errorMessage = error; });
-        return this.workers;
+    //constructor(/*private workerService:WorkerService*/){}
+    //workers : IWorker[];
+    //errorMessage : string;
+    WorkerData.prototype.createDb = function () {
+        /*this.*/ var workers = [{
+                "id": 1,
+                "IDNumber": 289156,
+                "FirstName": "Guy",
+                "LastName": "Epstein",
+                "DateOfBirth": "05/10/1971",
+                "PhoneNumber1": "08-088808",
+                "PhoneNumber2": "052-6321223",
+                "General_Additional_Data": "More that 20 years of experiemce"
+            },
+            {
+                "id": 2,
+                "IDNumber": 289157,
+                "FirstName": "Efraim",
+                "LastName": "Levi",
+                "DateOfBirth": "05/11/1981",
+                "PhoneNumber1": "08-08434348",
+                "PhoneNumber2": "052-63213434",
+                "General_Additional_Data": "Very thorough worker"
+            },
+            {
+                "id": 3,
+                "IDNumber": 289466,
+                "FirstName": "Shira",
+                "LastName": "Cohen",
+                "DateOfBirth": "05/1/1991",
+                "PhoneNumber1": "08-45634348",
+                "PhoneNumber2": "052-7613434",
+                "General_Additional_Data": "Very professional"
+            }];
+        /*this.workerService.getWorkers()
+            .subscribe(wrkr => {this.workers=wrkr; },
+            error => this.errorMessage = <any>error);*/
+        return { workers: workers };
     };
     return WorkerData;
 }());
 WorkerData = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [WorkerService_service_1.WorkerService])
+    core_1.Injectable()
 ], WorkerData);
 exports.WorkerData = WorkerData;
 var Worker = (function () {
@@ -62,4 +89,4 @@ var Worker = (function () {
     return Worker;
 }());
 exports.Worker = Worker;
-//# sourceMappingURL=worker.model.js.map
+//# sourceMappingURL=worker.js.map

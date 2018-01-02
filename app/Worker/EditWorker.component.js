@@ -10,11 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var worker_model_1 = require("../Models/worker.model");
+//import { IWorker, Worker } from '../Models/worker.model';
+//import { IWorker, Worker } from '../Services/worker.model';
+//import { IWorker, Worker } from '../Services/worker.model';
+var worker_1 = require("../Services/worker");
 var EditWorker = (function () {
     function EditWorker() {
-        this.worker = new worker_model_1.Worker();
-        this.worker = new worker_model_1.Worker();
+        this.worker = new worker_1.Worker();
+        this.worker = new worker_1.Worker();
     }
     EditWorker.prototype.ngOnInit = function () {
         //this.worker = new Worker();

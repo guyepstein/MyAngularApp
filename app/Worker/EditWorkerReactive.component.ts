@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkerService } from '../Services/WorkerService.service';
-import { IWorker, Worker } from '../Models/worker.model';
+//import { IWorker, Worker } from '../Models/worker.model';
+//import { IWorker, Worker } from '../Services/worker.model';
+import { IWorker, Worker } from '../Services/worker';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, FormArray } from  '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/catch';
+//import 'rxjs/add/observables/throw'; 
 
 @Component({
     selector: 'edit-worker-reactive',
@@ -13,7 +18,7 @@ import 'rxjs/add/operator/debounceTime';
 export class EditWorkerReactive implements OnInit 
 {
     editWorkerReactiveForm: FormGroup;
-    worker : Worker = new Worker();
+    worker : Worker /*= new Worker()*/;
     workerId: number;
 
     emailMessage: string;
@@ -36,19 +41,12 @@ export class EditWorkerReactive implements OnInit
     ngOnInit(): void{
 
         this.workerId = this.route.snapshot.params.id;
-        if (typeof this.workerId != 'undefined' &&  this.workerId > 0 )
-        {
-            this.workerService.getWorker(this.workerId).map (result => this.worker = result[0]);
-        }
         this.editWorkerReactiveForm = this.fb.group ({
             firstName: ['', [Validators.required, Validators.minLength(3)]],
             lastName: ['', [Validators.required, Validators.maxLength(50)]],
             emailGroup: this.fb.group({
                 email: ['',[Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+')]]
             }),
-            //chkboxAddAddress: [''],
-            /*email: ['',[Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z09.-]+')]],*/
-            //addressesGroup: this.buildAddress(),
             addressGroup: this.fb.array([this.buildAddress()]),
             phone: '',
             notification: 'email',
@@ -59,6 +57,10 @@ export class EditWorkerReactive implements OnInit
         const emailControl1 = this.editWorkerReactiveForm.get('emailGroup');
         const emailControl = this.editWorkerReactiveForm.get('emailGroup.email');
         emailControl.valueChanges.debounceTime(1000).subscribe(value => this.setMessage(emailControl));
+        if (typeof this.workerId != 'undefined' &&  this.workerId > 0 )
+        {
+            this.workerService.getWorker(this.workerId).subscribe((result : Worker) => { this.setPageValues(result);}); 
+        }
                
         
         /*new FormGroup(
@@ -72,6 +74,22 @@ export class EditWorkerReactive implements OnInit
                 city: new FormControl(),
              }
         );*/
+    }
+
+    setPageValues(workerItem : Worker)
+    {
+        this.worker = workerItem;
+        this.editWorkerReactiveForm.patchValue(
+        {
+            firstName: this.worker.FirstName,
+            lastName: this.worker.LastName,
+            /*emailGroup{ email: 
+                this.worker.Email },*/
+            zip: this.worker.Zip,
+            street1: this.worker.Street1,
+            street2: this.worker.Street2,
+            phone: this.worker.PhoneNumber1
+        });
     }
     buildAddress() : FormGroup
     {
